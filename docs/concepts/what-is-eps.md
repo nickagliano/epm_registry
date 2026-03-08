@@ -1,7 +1,7 @@
 # What is EPS?
 
-**Extremely Personal Software** is software that is functional by default but deliberately
-incomplete — designed from the start to be made yours.
+**Extremely Personal Software** is software that is functional by default and designed from
+the start to be made yours. Not unfinished — *intentionally open*.
 
 ## The problem EPS solves
 
@@ -65,6 +65,23 @@ agent might help you configure it. It doesn't benefit from it.
 This distinction determines what gets built and why. An EPS that adds no user value but
 makes agents more capable is not an EPS — it's agent infrastructure. The question is always:
 *whose life does this improve?*
+
+## What EPS is not
+
+The ecosystem around AI agents is maturing fast. Skill bundles, MCP servers, sub-agent
+packages, orchestration layers — there is real infrastructure being built to make agents
+more capable, and EPM could easily drift into distributing that kind of thing.
+
+We're naming this explicitly because the pull is strong. A package that gives an AI agent
+a new capability *looks* like an EPS. It has a manifest. It gets installed. It might even
+have a `CUSTOMIZE.md`. But if the primary beneficiary is the agent pipeline and not a
+person's daily life, it isn't an EPS — and EPM shouldn't host it.
+
+**EPM distributes harnesses, not agent skill packs.**
+
+The test is the same as always: is there a human whose life is concretely better because
+this is installed? If the honest answer is "well, it makes the agent more useful," that's
+a different registry.
 
 ## The litmus test
 
