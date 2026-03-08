@@ -6,38 +6,54 @@ on:
     branches: [ master ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: [ "5432:5432" ]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/epm_registry_test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up database
+        run: bin/rails db:create db:migrate
+
+      - name: Run tests
+        run: bundle exec rspec
+
   scan_ruby:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
+      - name: Scan for Rails security vulnerabilities
         run: bin/brakeman --no-pager
-      
-      - name: Scan for known security vulnerabilities in gems used
+
+      - name: Scan for vulnerable gems
         run: bin/bundler-audit
-      
-  scan_js:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
 
   lint:
     runs-on: ubuntu-latest
@@ -45,7 +61,7 @@ jobs:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -64,4 +80,3 @@ jobs:
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
-

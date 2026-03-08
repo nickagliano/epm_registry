@@ -26,11 +26,10 @@ module Api
 
         if package.save
           render json: version_json(version), status: :created
-        elsif package.errors[:name].include?("has already been taken") &&
-              version.errors[:version].include?("has already been taken")
+        elsif version.errors[:version].include?("has already been taken")
           render json: { error: "version already exists" }, status: :conflict
         else
-          render json: { error: package.errors.full_messages + version.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: (package.errors.full_messages + version.errors.full_messages).uniq }, status: :unprocessable_entity
         end
       end
 
