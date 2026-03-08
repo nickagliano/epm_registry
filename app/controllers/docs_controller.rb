@@ -7,7 +7,7 @@ class DocsController < ApplicationController
       pages: [
         { title: "What is EPS?",      path: "concepts/what-is-eps" },
         { title: "Ports",             path: "concepts/ports" },
-        { title: "CUSTOMIZE.md",      path: "concepts/customize-md" },
+        { title: "CUSTOMIZE.md",      path: "concepts/customize-md" }
       ]
     },
     {
@@ -26,7 +26,7 @@ class DocsController < ApplicationController
         { title: "ADR-0011 — Supply Chain Security",      path: "adr/0011-supply-chain-security" },
         { title: "ADR-0012 — Documentation Format",       path: "adr/0012-mdbook-documentation" },
         { title: "ADR-0013 — System Dependencies",        path: "adr/0013-system-dependency-declaration" },
-        { title: "ADR-0014 — epm init Scaffolding",       path: "adr/0014-epm-init-scaffolding" },
+        { title: "ADR-0014 — epm init Scaffolding",       path: "adr/0014-epm-init-scaffolding" }
       ]
     }
   ].freeze
