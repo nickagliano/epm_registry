@@ -21,7 +21,7 @@ Format options considered:
 | YAML   | Human-readable but whitespace-sensitive; surprising edge cases |
 | Custom | Unnecessary complexity |
 
-Given the Rust-first stack (ADR-0001), TOML is the natural choice — it mirrors `Cargo.toml` conventions that Rust developers already know.
+TOML is the natural choice for the CLI — it mirrors `Cargo.toml` conventions that Rust developers already know, and the `toml` crate handles parsing. The Rails registry parses it as well using the `toml-rb` gem.
 
 ## Decision
 
@@ -55,7 +55,7 @@ uninstall = "Scripts/uninstall.sh"   # optional
 
 **Optional fields:** hooks, homepage, license, authors, `customization_guide`.
 
-The manifest is parsed by a shared Rust crate (`eps-manifest`) used by both `epm` and the registry server.
+The manifest is parsed by `epm` (Rust, `toml` crate) and independently by the registry server (Rails, `toml-rb` gem). There is no shared parsing library — the schema is the contract.
 
 ## Consequences
 
@@ -64,7 +64,7 @@ The manifest is parsed by a shared Rust crate (`eps-manifest`) used by both `epm
 - Mirrors `Cargo.toml` — zero new syntax to learn for Rust users
 - The `[eps]` block acts as an explicit declaration that distinguishes EPSs from regular software
 - `customization_guide` field makes the LLM-friendliness contract explicit and discoverable
-- Shared Rust crate for parsing ensures CLI and server stay in sync
+- Schema-as-contract: the `eps.toml` format is the single source of truth; both implementations parse it independently
 
 **Negative:**
 - TOML is less universally known than JSON outside the Rust ecosystem

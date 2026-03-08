@@ -82,15 +82,9 @@ identifier against the allowlist.
 
 ### License for `epm` and the Registry
 
-The marketplace tooling itself — `epm` CLI and the registry server — is licensed under
-**Apache-2.0**. Reasons:
+The marketplace tooling itself — `epm` CLI and the registry server — is **proprietary / all rights reserved**. This is the pre-launch state. Licensing for the tooling will be revisited before public release.
 
-- Permissive enough to encourage wide adoption and contribution
-- Patent grant clause (over MIT) provides protection for users of the CLI in corporate environments
-- Consistent with the Rust ecosystem norms (rustc, cargo, and most major crates are Apache-2.0
-  or MIT/Apache-2.0 dual-licensed)
-- Does not require derivative works to be open-source, which matters if someone wants to build
-  a private fork of the registry for internal use
+The EPS ecosystem's licensing philosophy (open EPSs, no rug-pulls) applies to *packages published on the registry*, not to the registry infrastructure itself.
 
 ## Consequences
 
@@ -98,7 +92,7 @@ The marketplace tooling itself — `epm` CLI and the registry server — is lice
 - License immutability per version gives users a concrete, enforceable guarantee against rug-pulls
 - Explicit exclusion of source-available licenses makes the "no tldraw anti-pattern" rule clear
 - SPDX-based allowlist is machine-checkable at publish time — no ambiguity
-- Apache-2.0 for marketplace tooling is a well-understood, business-friendly choice
+- Tooling license is explicitly deferred until pre-launch
 
 **Negative:**
 - Excluding source-available licenses may deter authors who want to eventually monetize their

@@ -14,7 +14,7 @@ We need to choose an implementation language. Key constraints:
 
 - The CLI must ship as a single, self-contained binary with no runtime dependency (users should not need to install Node, Python, etc.)
 - Performance and memory footprint matter for the CLI since it runs on user devices
-- The registry server needs to be reliable, fast, and easy to deploy as a single binary
+- The registry server needs to be reliable, fast, and easy to deploy
 - The broader project philosophy encourages local-first, lean software — the tooling should embody those values
 - The team has a preference for Rust
 
@@ -29,11 +29,11 @@ Alternatives considered:
 
 ## Decision
 
-Rust is the primary implementation language for all components of the Extremely Personal Marketplace, including:
+The implementation language is **Rust for the `epm` CLI** and **Ruby on Rails for the registry server**.
 
-- The `epm` CLI
-- The registry server
-- Any shared library crates (manifest parsing, version resolution, etc.)
+The original intent was to use Rust for both, but the registry is fundamentally a CRUD app — it needs a database, a web UI, auth, background jobs, and admin tooling. Rails provides all of that out of the box. Building it in axum would mean reimplementing a web framework. Rails is the right tool.
+
+The CLI stays in Rust: it must ship as a single self-contained binary with no runtime dependency on the user's machine.
 
 Platform-native code (e.g., macOS Swift for UI in EPSs themselves) is explicitly out of scope — EPSs are built by their authors in whatever language makes sense. This ADR only governs the marketplace tooling.
 
@@ -41,13 +41,11 @@ Platform-native code (e.g., macOS Swift for UI in EPSs themselves) is explicitly
 
 **Positive:**
 - Single-binary distribution for `epm` — no install prerequisites beyond the binary itself
-- Memory safety guarantees reduce a class of bugs common in long-running servers
-- Cargo makes dependency management and workspace organization straightforward
-- Crates like `clap`, `tokio`, `axum`, `serde`, and `reqwest` cover virtually all needs
-- Consistent language across CLI and server simplifies code sharing (e.g., manifest types)
-- Aligns with the EPS ethos: lean, fast, reliable, no bloat
+- Rails gives the registry a web UI, auth, background jobs, admin, and migrations for free
+- Right tool for each job: Rust for the CLI, Rails for the server
+- Aligns with the EPS ethos: lean, fast, reliable
 
 **Negative:**
-- Longer compile times during development compared to Go or scripting languages
-- Steeper onboarding curve for contributors unfamiliar with Rust's ownership model
-- Some crates in the ecosystem are less mature than equivalents in Go or Node
+- Two languages means no shared code between CLI and server (manifest parsing is independent in each)
+- Registry requires Ruby + bundler on the server; not a single binary
+- Longer compile times for the CLI during development

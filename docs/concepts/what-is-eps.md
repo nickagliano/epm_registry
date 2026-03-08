@@ -98,7 +98,7 @@ a browser — no installation on the client side.
 
 Extension model: CUSTOMIZE.md ports, environment variables, and request middleware.
 
-Examples: `notes`, `chat`, `eps-dashboard`, `simple_todo`
+Examples: `notes`, `todo`, `chat`, `eps-dashboard`
 
 ### Tool harness
 

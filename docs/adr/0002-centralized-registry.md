@@ -33,7 +33,7 @@ Key considerations:
 - Does **not** store package source code or binaries — it stores a pointer to the canonical source (git URL + tag/commit)
 - Exposes a REST API consumed by the `epm` CLI
 - Is the single source of truth for package name → source resolution
-- Is built in Rust (per ADR-0001), using `axum` as the web framework and a relational database for the index
+- Is built in Ruby on Rails with PostgreSQL (see ADR-0001)
 
 The registry does **not** need to host binaries. It holds metadata and points to git sources; `epm` clones/downloads from those sources directly. This keeps hosting costs low and keeps authors in control of their own code.
 
