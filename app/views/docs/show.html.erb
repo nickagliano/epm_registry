@@ -1,33 +1,50 @@
 <% content_for :title, "#{@title} — EPS Docs" %>
 
-<div class="max-w-6xl mx-auto px-4 py-8 flex gap-10">
+<div class="max-w-6xl mx-auto px-4 py-8">
 
-  <%# Sidebar %>
-  <nav class="w-56 shrink-0">
-    <div class="sticky top-8">
-      <%= link_to "← Registry", root_path, class: "text-xs text-gray-400 hover:text-black mb-6 block" %>
+  <%# Mobile nav — collapsed horizontal scroll %>
+  <div class="block sm:hidden mb-6 pb-4 border-b border-gray-200">
+    <%= link_to "← Registry", root_path, class: "text-xs text-gray-400 hover:text-black block mb-3" %>
+    <div class="flex gap-4 overflow-x-auto pb-1 text-sm">
       <% @sidebar.each do |section| %>
-        <div class="mb-6">
-          <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2"><%= section[:title] %></p>
-          <ul class="space-y-1">
-            <% section[:pages].each do |page| %>
-              <li>
-                <%= link_to page[:title],
-                    docs_path(page[:path]),
-                    class: "text-sm block py-0.5 leading-snug #{@current_path == page[:path] ? 'font-semibold text-black' : 'text-gray-500 hover:text-black'}" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+        <% section[:pages].each do |page| %>
+          <%= link_to page[:title],
+              docs_path(page[:path]),
+              class: "shrink-0 py-0.5 #{@current_path == page[:path] ? 'font-semibold text-black' : 'text-gray-400 hover:text-black'}" %>
+        <% end %>
       <% end %>
     </div>
-  </nav>
+  </div>
 
-  <%# Content %>
-  <article class="docs-content min-w-0 flex-1">
-    <%= @content_html %>
-  </article>
+  <div class="flex gap-10">
 
+    <%# Desktop sidebar %>
+    <nav class="hidden sm:block w-52 shrink-0">
+      <div class="sticky top-8">
+        <%= link_to "← Registry", root_path, class: "text-xs text-gray-400 hover:text-black mb-6 block" %>
+        <% @sidebar.each do |section| %>
+          <div class="mb-6">
+            <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2"><%= section[:title] %></p>
+            <ul class="space-y-1">
+              <% section[:pages].each do |page| %>
+                <li>
+                  <%= link_to page[:title],
+                      docs_path(page[:path]),
+                      class: "text-sm block py-0.5 leading-snug #{@current_path == page[:path] ? 'font-semibold text-black' : 'text-gray-500 hover:text-black'}" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+
+    <%# Content %>
+    <article class="docs-content min-w-0 flex-1">
+      <%= @content_html %>
+    </article>
+
+  </div>
 </div>
 
 <style>

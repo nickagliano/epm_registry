@@ -1,10 +1,10 @@
 <div class="max-w-4xl mx-auto px-4 py-8">
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-2xl font-bold">EPM Registry</h1>
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold mb-4">EPM Registry</h1>
     <%= form_with url: packages_path, method: :get, class: "flex gap-2" do |f| %>
       <%= f.text_field :q, value: params[:q], placeholder: "Search packages…",
-          class: "border border-gray-300 rounded px-3 py-1.5 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-black" %>
-      <%= f.submit "Search", class: "bg-black text-white text-sm px-3 py-1.5 rounded cursor-pointer hover:bg-gray-800" %>
+          class: "border border-gray-300 rounded px-3 py-1.5 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-black" %>
+      <%= f.submit "Search", class: "bg-black text-white text-sm px-3 py-1.5 rounded cursor-pointer hover:bg-gray-800 shrink-0" %>
     <% end %>
   </div>
 
