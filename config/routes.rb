@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :packages, only: [ :index, :show, :create ] do
-        resources :versions, only: [ :show ], param: :version_number
+        resources :versions, only: [ :show ], param: :version_number,
+                            constraints: { version_number: /[^\/]+/ } do
+          member { patch :yank }
+        end
       end
     end
   end

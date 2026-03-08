@@ -11,6 +11,20 @@ module Api
         render json: { error: "not found" }, status: :not_found
       end
 
+      def yank
+        package = Package.find_by!(name: params[:package_id])
+        version = package.versions.find_by!(version: params[:version_number])
+
+        if version.yanked?
+          render json: { error: "already yanked" }, status: :unprocessable_entity
+        else
+          version.update!(yanked: true)
+          render json: version_json(version)
+        end
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "not found" }, status: :not_found
+      end
+
       private
 
       def version_json(version)

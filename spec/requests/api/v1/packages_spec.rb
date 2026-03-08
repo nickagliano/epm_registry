@@ -23,7 +23,7 @@ RSpec.describe "Api::V1::Packages", type: :request do
 
       get "/api/v1/packages", params: { q: "todo" }
       names = JSON.parse(response.body).map { |p| p["name"] }
-      expect(names).to eq(["todo"])
+      expect(names).to eq([ "todo" ])
     end
 
     it "returns expected fields" do
@@ -54,7 +54,7 @@ RSpec.describe "Api::V1::Packages", type: :request do
 
       get "/api/v1/packages/todo"
       versions = JSON.parse(response.body)["versions"].map { |v| v["version"] }
-      expect(versions).to eq(["0.1.0"])
+      expect(versions).to eq([ "0.1.0" ])
     end
 
     it "returns 404 for unknown package" do
