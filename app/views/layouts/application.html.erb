@@ -24,7 +24,16 @@
   </head>
 
   <body class="overflow-x-hidden">
-    <main class="container mx-auto mt-8 sm:mt-16 px-4 flex">
+    <nav class="border-b border-gray-200">
+      <div class="container mx-auto px-4 flex items-center justify-between h-12">
+        <%= link_to "EPM", root_path, class: "font-mono font-semibold text-sm" %>
+        <div class="flex gap-6 text-sm text-gray-500">
+          <%= link_to "Packages", root_path, class: "hover:text-black" %>
+          <%= link_to "Docs", docs_root_path, class: "hover:text-black" %>
+        </div>
+      </div>
+    </nav>
+    <main class="container mx-auto mt-8 px-4 flex">
       <%= yield %>
     </main>
   </body>
