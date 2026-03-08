@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/docs",       to: "docs#show", as: :docs_root, defaults: { path: "concepts/what-is-eps" }
+  get "/docs/*path", to: "docs#show", as: :docs
+
   root "packages#index"
   resources :packages, only: [ :index, :show ]
 end

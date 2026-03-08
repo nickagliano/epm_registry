@@ -35,6 +35,10 @@ gem "bootsnap", require: false
 # Rate limiting
 gem "rack-attack"
 
+# Markdown rendering for docs
+# TODO: replace with a small in-house renderer (we only need headings, code blocks, tables, links)
+gem "redcarpet"
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
