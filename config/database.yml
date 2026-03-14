@@ -90,6 +90,7 @@ production:
     database: epm_registry_production
     username: epm_registry
     password: <%= ENV["EPM_REGISTRY_DATABASE_PASSWORD"] %>
+    host: <%= ENV.fetch("DB_HOST", "localhost") %>
   cache:
     <<: *primary_production
     database: epm_registry_production_cache

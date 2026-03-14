@@ -1,5 +1,5 @@
 service: epm_registry
-image: ghcr.io/nickagliano/epm_registry
+image: nickagliano/epm_registry
 
 servers:
   web:
@@ -20,9 +20,10 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
-    - DATABASE_URL
+    - EPM_REGISTRY_DATABASE_PASSWORD
   clear:
     SOLID_QUEUE_IN_PUMA: true
+    DB_HOST: epm_registry-db
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
