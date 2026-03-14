@@ -59,4 +59,16 @@ See the [epm CLI repo](https://github.com/nickagliano/extremely_personal_marketp
 
 ## Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for Hetzner VPS setup instructions.
+Deployed to `eps-shared` (178.156.215.141) via Kamal. See `config/deploy.yml`.
+
+```sh
+bin/kamal deploy   # build, push, zero-downtime deploy
+bin/kamal logs     # tail production logs
+bin/kamal console  # rails console on the server
+```
+
+## TODO
+
+- [ ] **Domain** — point a domain at 178.156.215.141, then uncomment `ssl: true` + `host:` in `config/deploy.yml` and redeploy
+- [ ] **Rotate secrets** — regenerate the GitHub PAT in `.kamal/registry_token` and the DB password in `.kamal/db_password` (both were shared in plaintext during initial setup)
+- [ ] **EPM_PUBLISH_TOKEN** — set a publish token on the server so package publishing requires auth (`kamal env set EPM_PUBLISH_TOKEN=...`)
