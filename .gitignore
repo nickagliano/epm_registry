@@ -33,6 +33,10 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Kamal deploy secrets (never commit these)
+/.kamal/registry_token
+/.kamal/db_password
+
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
