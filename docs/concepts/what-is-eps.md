@@ -128,6 +128,21 @@ Example: `pi` (OpenClaw)
 
 All three are valid EPS. The question is always the same: did the author leave room?
 
+## Seasonings
+
+Some implementation patterns are too small to be a harness but too useful to leave undocumented.
+A **seasoning** is a self-contained, LLM-ready implementation pattern for EPS apps — not a
+package, not a library, just structured instructions an agent (or human) can apply to any
+compatible EPS app.
+
+Seasonings live in the `eps_seasonings` repository. They cover things like: PIN gate auth,
+haptic feedback, safe-area fixes. Hand one to an agent alongside your project and it knows
+exactly how to wire it in.
+
+See the [seasonings concept doc](seasonings.md) and [ADR-0015](../adr/0015-eps-seasonings.md).
+
+---
+
 ## A note on plugin marketplaces
 
 Some native harnesses have enough complexity — language packs, model variants, voice
