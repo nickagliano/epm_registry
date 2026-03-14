@@ -1,20 +1,20 @@
 <div class="max-w-4xl mx-auto px-4 py-8">
-  <%= link_to "← All packages", packages_path, class: "text-sm text-gray-500 hover:underline" %>
+  <%= link_to "← All packages", packages_path, class: "text-sm text-muted hover:text-base hover:underline" %>
 
   <div class="mt-6">
     <h1 class="text-2xl font-bold font-mono"><%= @package.name %></h1>
-    <p class="text-gray-600 mt-1"><%= @package.description %></p>
+    <p class="text-muted mt-1"><%= @package.description %></p>
 
     <dl class="mt-4 grid grid-cols-2 gap-x-8 gap-y-2 text-sm max-w-lg">
-      <dt class="text-gray-500">Authors</dt>
+      <dt class="text-muted">Authors</dt>
       <dd><%= @package.authors.join(", ") %></dd>
-      <dt class="text-gray-500">License</dt>
+      <dt class="text-muted">License</dt>
       <dd><%= @package.license %></dd>
-      <dt class="text-gray-500">Repository</dt>
-      <dd><%= link_to @package.repository, @package.repository, class: "text-blue-600 hover:underline", target: "_blank" %></dd>
+      <dt class="text-muted">Repository</dt>
+      <dd><%= link_to @package.repository, @package.repository, class: "text-accent hover:underline", target: "_blank" %></dd>
       <% if @package.homepage.present? %>
-        <dt class="text-gray-500">Homepage</dt>
-        <dd><%= link_to @package.homepage, @package.homepage, class: "text-blue-600 hover:underline", target: "_blank" %></dd>
+        <dt class="text-muted">Homepage</dt>
+        <dd><%= link_to @package.homepage, @package.homepage, class: "text-accent hover:underline", target: "_blank" %></dd>
       <% end %>
     </dl>
   </div>
@@ -22,19 +22,19 @@
   <div class="mt-8">
     <h2 class="text-lg font-semibold mb-3">Versions</h2>
     <% if @package.versions.not_yanked.empty? %>
-      <p class="text-gray-500 text-sm">No versions published.</p>
+      <p class="text-muted text-sm">No versions published.</p>
     <% else %>
-      <div class="divide-y divide-gray-200">
+      <div class="divide-y divide-base">
         <% @package.versions.not_yanked.order(created_at: :desc).each do |v| %>
           <div class="py-3 text-sm">
             <div class="flex items-center gap-3">
               <span class="font-mono font-semibold"><%= v.version %></span>
-              <span class="text-gray-400 text-xs"><%= v.created_at.strftime("%b %d, %Y") %></span>
+              <span class="text-dim text-xs"><%= v.created_at.strftime("%b %d, %Y") %></span>
             </div>
             <% if v.platforms.any? %>
-              <div class="mt-1 text-xs text-gray-500"><%= v.platforms.join(", ") %></div>
+              <div class="mt-1 text-xs text-muted"><%= v.platforms.join(", ") %></div>
             <% end %>
-            <div class="mt-1 font-mono text-xs text-gray-400">
+            <div class="mt-1 font-mono text-xs text-dim">
               epm install <%= @package.name %>@<%= v.version %>
             </div>
           </div>

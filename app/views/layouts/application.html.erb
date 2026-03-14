@@ -1,41 +1,78 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Epm Registry" %></title>
+    <title><%= content_for(:title) || "EPM Registry" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Epm Registry">
+    <meta name="application-name" content="EPM Registry">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%# Apply theme before first paint to avoid flash %>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body class="overflow-x-hidden">
-    <nav class="border-b border-gray-200">
+    <nav class="border-b border-base">
       <div class="container mx-auto px-4 flex items-center justify-between h-12">
-        <%= link_to "EPM", root_path, class: "font-mono font-semibold text-sm" %>
-        <div class="flex gap-6 text-sm text-gray-500">
-          <%= link_to "Packages", root_path, class: "hover:text-black" %>
-          <%= link_to "Docs", docs_root_path, class: "hover:text-black" %>
-          <%= link_to "News", news_index_path, class: "hover:text-black" %>
+        <%= link_to "EPM", root_path, class: "font-mono font-semibold text-sm text-base" %>
+        <div class="flex items-center gap-5 text-sm text-muted">
+          <%= link_to "Packages", root_path, class: "hover:text-base" %>
+          <%= link_to "Docs", docs_root_path, class: "hover:text-base" %>
+          <%= link_to "News", news_index_path, class: "hover:text-base" %>
+          <button id="theme-toggle"
+                  onclick="cycleTheme()"
+                  title="Toggle theme"
+                  style="font-size:1rem; line-height:1; background:none; border:none; cursor:pointer; color:var(--text-dim); padding:0 2px;">
+            ◐
+          </button>
         </div>
       </div>
     </nav>
-    <main class="container mx-auto mt-8 px-4 flex">
+    <main class="container mx-auto mt-8 px-4">
       <%= yield %>
     </main>
+
+    <script>
+      var THEMES = ['auto', 'dark', 'light'];
+      var ICONS  = { auto: '◐', dark: '◑', light: '○' };
+
+      function getTheme() { return localStorage.getItem('theme') || 'auto'; }
+
+      function applyTheme(t) {
+        if (t === 'auto') {
+          localStorage.removeItem('theme');
+          document.documentElement.removeAttribute('data-theme');
+        } else {
+          localStorage.setItem('theme', t);
+          document.documentElement.setAttribute('data-theme', t);
+        }
+        var btn = document.getElementById('theme-toggle');
+        if (btn) btn.textContent = ICONS[t];
+      }
+
+      function cycleTheme() {
+        var t = getTheme();
+        applyTheme(THEMES[(THEMES.indexOf(t) + 1) % THEMES.length]);
+      }
+
+      // Set correct icon on load
+      document.getElementById('theme-toggle').textContent = ICONS[getTheme()];
+    </script>
   </body>
 </html>

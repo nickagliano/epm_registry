@@ -5,28 +5,30 @@ class DocsController < ApplicationController
     {
       title: "Concepts",
       pages: [
-        { title: "What is EPS?",      path: "concepts/what-is-eps" },
-        { title: "Ports",             path: "concepts/ports" },
-        { title: "CUSTOMIZE.md",      path: "concepts/customize-md" }
+        { title: "What is EPS?",  path: "concepts/what-is-eps" },
+        { title: "Ports",         path: "concepts/ports" },
+        { title: "CUSTOMIZE.md",  path: "concepts/customize-md" },
+        { title: "Seasonings",    path: "concepts/seasonings" }
       ]
     },
     {
       title: "Architecture Decisions",
       pages: [
-        { title: "ADR-0001 — Implementation Languages",   path: "adr/0001-rust-primary-language" },
-        { title: "ADR-0002 — Centralized Registry",       path: "adr/0002-centralized-registry" },
-        { title: "ADR-0003 — eps.toml Manifest Format",   path: "adr/0003-eps-manifest-format" },
-        { title: "ADR-0004 — CLI Named epm",              path: "adr/0004-cli-named-epm" },
-        { title: "ADR-0005 — LLM-Friendliness",           path: "adr/0005-llm-friendliness" },
-        { title: "ADR-0006 — EPS Acceptance Standards",   path: "adr/0006-eps-acceptance-standards" },
-        { title: "ADR-0007 — Licensing Philosophy",       path: "adr/0007-licensing-philosophy" },
-        { title: "ADR-0008 — The Harness Definition",     path: "adr/0008-harness-definition" },
-        { title: "ADR-0009 — Install Lifecycle",          path: "adr/0009-install-lifecycle" },
+        { title: "ADR-0001 — Implementation Languages",    path: "adr/0001-rust-primary-language" },
+        { title: "ADR-0002 — Centralized Registry",        path: "adr/0002-centralized-registry" },
+        { title: "ADR-0003 — eps.toml Manifest Format",    path: "adr/0003-eps-manifest-format" },
+        { title: "ADR-0004 — CLI Named epm",               path: "adr/0004-cli-named-epm" },
+        { title: "ADR-0005 — LLM-Friendliness",            path: "adr/0005-llm-friendliness" },
+        { title: "ADR-0006 — EPS Acceptance Standards",    path: "adr/0006-eps-acceptance-standards" },
+        { title: "ADR-0007 — Licensing Philosophy",        path: "adr/0007-licensing-philosophy" },
+        { title: "ADR-0008 — The Harness Definition",      path: "adr/0008-harness-definition" },
+        { title: "ADR-0009 — Install Lifecycle",           path: "adr/0009-install-lifecycle" },
         { title: "ADR-0010 — Registry Auth & Namespacing", path: "adr/0010-registry-auth-and-namespacing" },
-        { title: "ADR-0011 — Supply Chain Security",      path: "adr/0011-supply-chain-security" },
-        { title: "ADR-0012 — Documentation Format",       path: "adr/0012-mdbook-documentation" },
-        { title: "ADR-0013 — System Dependencies",        path: "adr/0013-system-dependency-declaration" },
-        { title: "ADR-0014 — epm init Scaffolding",       path: "adr/0014-epm-init-scaffolding" }
+        { title: "ADR-0011 — Supply Chain Security",       path: "adr/0011-supply-chain-security" },
+        { title: "ADR-0012 — Documentation Format",        path: "adr/0012-mdbook-documentation" },
+        { title: "ADR-0013 — System Dependencies",         path: "adr/0013-system-dependency-declaration" },
+        { title: "ADR-0014 — epm init Scaffolding",        path: "adr/0014-epm-init-scaffolding" },
+        { title: "ADR-0015 — EPS Seasonings",              path: "adr/0015-eps-seasonings" }
       ]
     }
   ].freeze

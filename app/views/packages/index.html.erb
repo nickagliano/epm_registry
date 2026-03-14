@@ -3,24 +3,27 @@
     <h1 class="text-2xl font-bold mb-4">EPM Registry</h1>
     <%= form_with url: packages_path, method: :get, class: "flex gap-2" do |f| %>
       <%= f.text_field :q, value: params[:q], placeholder: "Search packages…",
-          class: "border border-gray-300 rounded px-3 py-1.5 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-black" %>
-      <%= f.submit "Search", class: "bg-black text-white text-sm px-3 py-1.5 rounded cursor-pointer hover:bg-gray-800 shrink-0" %>
+          class: "rounded px-3 py-1.5 text-sm flex-1 focus:outline-none",
+          style: "border: 1px solid var(--input-border); background: var(--bg); color: var(--text);" %>
+      <%= f.submit "Search",
+          class: "text-sm px-3 py-1.5 rounded cursor-pointer shrink-0 font-medium",
+          style: "background: var(--btn-bg); color: var(--btn-text);" %>
     <% end %>
   </div>
 
   <% if @packages.empty? %>
-    <p class="text-gray-500 text-sm">No packages found.</p>
+    <p class="text-muted text-sm">No packages found.</p>
   <% else %>
-    <div class="divide-y divide-gray-200">
+    <div class="divide-y divide-base">
       <% @packages.each do |package| %>
         <div class="py-4">
           <div class="flex items-baseline gap-3">
             <%= link_to package.name, package_path(package.name),
-                class: "font-mono font-semibold text-black hover:underline" %>
-            <span class="text-xs text-gray-400"><%= package.versions.not_yanked.count %> version(s)</span>
+                class: "font-mono font-semibold text-accent hover:underline" %>
+            <span class="text-xs text-dim"><%= package.versions.not_yanked.count %> version(s)</span>
           </div>
-          <p class="text-sm text-gray-600 mt-0.5"><%= package.description %></p>
-          <div class="flex gap-3 mt-1 text-xs text-gray-400">
+          <p class="text-sm text-muted mt-0.5"><%= package.description %></p>
+          <div class="flex gap-3 mt-1 text-xs text-dim">
             <span><%= package.license %></span>
             <span><%= package.authors.join(", ") %></span>
           </div>
