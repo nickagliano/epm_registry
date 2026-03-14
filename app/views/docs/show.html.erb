@@ -1,18 +1,51 @@
 <% content_for :title, "#{@title} — EPS Docs" %>
 
+<%# ── Mobile drawer overlay ── %>
+<div id="docs-backdrop"
+     onclick="closeDrawer()"
+     style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:40;"></div>
+
+<div id="docs-drawer"
+     style="position:fixed; top:0; left:0; height:100%; width:280px; z-index:50;
+            background:var(--bg); border-right:1px solid var(--border);
+            overflow-y:auto; padding:1.25rem 1.25rem 2rem;
+            transform:translateX(-100%); transition:transform 0.25s ease;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+    <%= link_to "← Registry", root_path, class: "text-xs text-dim hover:text-base" %>
+    <button onclick="closeDrawer()"
+            style="background:none; border:none; cursor:pointer; color:var(--text-dim); font-size:1.2rem; line-height:1; padding:0 2px;">✕</button>
+  </div>
+  <% @sidebar.each do |section| %>
+    <div style="margin-bottom:1.5rem;">
+      <p style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:0.5rem;">
+        <%= section[:title] %>
+      </p>
+      <ul>
+        <% section[:pages].each do |page| %>
+          <li>
+            <%= link_to page[:title],
+                docs_path(page[:path]),
+                onclick: "closeDrawer()",
+                style: "display:block; padding:0.3rem 0; font-size:0.875rem; line-height:1.35;
+                        #{@current_path == page[:path] ? 'font-weight:600; color:var(--text);' : 'color:var(--text-muted);'}" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
 <div class="max-w-6xl mx-auto py-8 w-full min-w-0">
 
-  <%# Mobile nav — collapsed horizontal scroll %>
-  <div class="block sm:hidden mb-6 pb-4 border-b border-base">
-    <%= link_to "← Registry", root_path, class: "text-xs text-dim hover:text-base block mb-3" %>
-    <div class="flex gap-4 overflow-x-auto pb-1 text-sm">
-      <% @sidebar.each do |section| %>
-        <% section[:pages].each do |page| %>
-          <%= link_to page[:title],
-              docs_path(page[:path]),
-              class: "shrink-0 py-0.5 #{@current_path == page[:path] ? 'font-semibold text-base' : 'text-muted hover:text-base'}" %>
-        <% end %>
-      <% end %>
+  <%# Mobile top bar %>
+  <div class="block sm:hidden mb-6">
+    <div class="flex items-center justify-between">
+      <%= link_to "← Registry", root_path, class: "text-xs text-dim hover:text-base" %>
+      <button onclick="openDrawer()"
+              class="text-sm text-muted hover:text-base flex items-center gap-1.5"
+              style="background:none; border:none; cursor:pointer; padding:0;">
+        <span>☰</span> <span>Docs</span>
+      </button>
     </div>
   </div>
 
@@ -46,3 +79,16 @@
 
   </div>
 </div>
+
+<script>
+  function openDrawer() {
+    document.getElementById('docs-drawer').style.transform = 'translateX(0)';
+    document.getElementById('docs-backdrop').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    document.getElementById('docs-drawer').style.transform = 'translateX(-100%)';
+    document.getElementById('docs-backdrop').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+</script>
